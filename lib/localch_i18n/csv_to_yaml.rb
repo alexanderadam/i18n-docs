@@ -48,6 +48,7 @@ module LocalchI18n
 
     def store_translation(keys, locale, value)
       return nil if value.nil?    # we don't store keys that don't have a valid value
+      value.strip!
       # Google Spreadsheet does not export empty strings and therefore we use '_' as a replacement char.
       value = '' if value == '_'
 
