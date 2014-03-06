@@ -10,13 +10,13 @@ module UnitTests
     def setup
       create_tmp_dir
 
-      @input_file  = File.join(fixture_path, 'minimal.csv')
+      input_file  = File.join(fixture_path, 'minimal.csv')
       @output_file = File.join(tmp_dir, 'test.yml')
       @locales = ['de', 'en']
 
       Rails.stubs(:root).returns(stub(join: @output_file))
 
-      @csv_to_yaml = LocalchI18n::CsvToYaml.new(@input_file, @output_file, @locales)
+      @csv_to_yaml = LocalchI18n::CsvToYaml.new(input_file, @output_file, @locales)
     end
 
     def teardown

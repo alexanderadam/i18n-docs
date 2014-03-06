@@ -86,5 +86,4 @@ Update docs, license. Push to Rubygems.org.
 
 ### Credits/License
 
-This gem is sponsored by [local.ch](http://www.local.ch/). It is licensed under the [MIT license](http://en.wikipedia.org/wiki/MIT_License). If you're a ruby developer and want to work with us in Switzerland, please check out our [jobs page](http://local-ch.github.com/).
-
+This gem is sponsored by [local.ch](http://www.local.ch/) and updated by [screenconcept.ch](http://www.screenconcept.com/). It is licensed under the [MIT license](http://en.wikipedia.org/wiki/MIT_License).
