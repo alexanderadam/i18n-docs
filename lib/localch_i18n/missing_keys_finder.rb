@@ -1,4 +1,3 @@
-
 module LocalchI18n
   class MissingKeysFinder
     def initialize(backend)
@@ -85,12 +84,14 @@ module LocalchI18n
     # Returns true if key exists in the given locale
     def key_exists?(key, locale)
       I18n.locale = locale
-      I18n.translate(key, raise: true)
-      return true
+      I18n.translate key, raise: true
+      true
     rescue I18n::MissingInterpolationArgument
-      return true
+      true
     rescue I18n::MissingTranslationData
-      return false
+      false
+    rescue
+      false
     end
 
     def load_translations
