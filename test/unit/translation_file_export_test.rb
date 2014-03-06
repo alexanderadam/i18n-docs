@@ -26,25 +26,25 @@ module UnitTests
     def test_export
       assert !File.exists?(@output_file)
       @exporter.export
-      assert File.exists?(@output_file), "Expected to have a CSV file written"
+      assert File.exists?(@output_file), 'Expected to have a CSV file written'
     end
 
     def dtest_load_language
       translations = @exporter.load_language('de')
 
-      assert translations, "Expected to return a hash with translations"
-      assert_equal translations['header']['search'], "Finden"
+      assert translations, 'Expected to return a hash with translations'
+      assert_equal translations['header']['search'], 'Finden'
     end
 
     def dtest_flatten_translations_hash
-      translation_hash = {'a' => {
+      translation_hash = { 'a' => {
                             'I' => '1',
                             'II' => '2',
                             'III' => {
                               'Z' => '3'
                             }
                           },
-                          'b' => '4'
+                           'b' => '4'
                          }
 
       flat = @exporter.flatten_translations_hash(translation_hash, [])
@@ -66,8 +66,8 @@ module UnitTests
     end
 
     def dtest_write_to_csv
-      @exporter.translations = {'de' => {'numbers.one' => 'eins'},
-                                'en' => {'numbers.one' => 'one'}}
+      @exporter.translations = { 'de' => { 'numbers.one' => 'eins' },
+                                 'en' => { 'numbers.one' => 'one' } }
 
       @exporter.write_to_csv
 

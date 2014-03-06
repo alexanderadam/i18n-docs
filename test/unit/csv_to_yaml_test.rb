@@ -14,7 +14,7 @@ module UnitTests
       @output_file = File.join(tmp_dir, 'test.yml')
       @locales = ['de', 'en']
 
-      Rails.stubs(:root).returns(stub(:join => @output_file))
+      Rails.stubs(:root).returns(stub(join: @output_file))
 
       @csv_to_yaml = LocalchI18n::CsvToYaml.new(@input_file, @output_file, @locales)
     end
@@ -24,8 +24,8 @@ module UnitTests
     end
 
     def test_process_row
-      row1 = {'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => 'Telefonbuch der Schweiz'}
-      row2 = {'key' => 'homepage.welcome', 'en' => 'Welcome', 'de' => 'Willkommen'}
+      row1 = { 'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => 'Telefonbuch der Schweiz' }
+      row2 = { 'key' => 'homepage.welcome', 'en' => 'Welcome', 'de' => 'Willkommen' }
       @csv_to_yaml.process_row(row1)
       @csv_to_yaml.process_row(row2)
 
@@ -37,7 +37,7 @@ module UnitTests
     end
 
     def test_row_containing_non_locale_columns
-      row = {'key' => 'homepage.title', 'en' => "We are the Phonebook", 'de' => 'Test DE', 'comment' => "Test comment"}
+      row = { 'key' => 'homepage.title', 'en' => 'We are the Phonebook', 'de' => 'Test DE', 'comment' => 'Test comment' }
       @csv_to_yaml.process_row(row)
 
       translations = @csv_to_yaml.translations
@@ -48,7 +48,7 @@ module UnitTests
     def test_empty_string_replacement_value
       # As Google Spreadsheet does not export empty cells we use '_' as a fake whitespace which
       # we replace with an empty string during CVS2YAML conversion.
-      row = {'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => '_'}
+      row = { 'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => '_' }
       @csv_to_yaml.process_row(row)
 
       translations = @csv_to_yaml.translations
@@ -58,7 +58,7 @@ module UnitTests
 
 
     def test_empty_string_value
-      row = {'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => ''}
+      row = { 'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => '' }
       @csv_to_yaml.process_row(row)
 
       translations = @csv_to_yaml.translations
@@ -68,7 +68,7 @@ module UnitTests
 
 
     def test_space_value
-      row = {'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => ' '}
+      row = { 'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => ' ' }
       @csv_to_yaml.process_row(row)
 
       translations = @csv_to_yaml.translations
@@ -77,7 +77,7 @@ module UnitTests
     end
 
     def test_nil_value
-      row = {'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => nil}
+      row = { 'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => nil }
       @csv_to_yaml.process_row(row)
 
       translations = @csv_to_yaml.translations
@@ -87,8 +87,8 @@ module UnitTests
 
 
     def test_nil_value_deep_structure
-      row1 = {'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => nil}
-      row2 = {'key' => 'homepage.welcome', 'en' => 'Welcome', 'de' => 'Willkommen'}
+      row1 = { 'key' => 'homepage.meta.title', 'en' => 'Phonebook of Switzerland', 'de' => nil }
+      row2 = { 'key' => 'homepage.welcome', 'en' => 'Welcome', 'de' => 'Willkommen' }
       @csv_to_yaml.process_row(row1)
       @csv_to_yaml.process_row(row2)
 

@@ -17,14 +17,11 @@ module TestHelper
   end
 
   def create_tmp_dir
-    FileUtils::mkdir(tmp_dir) if ! File.exists?(tmp_dir)
+    FileUtils.mkdir(tmp_dir) if !File.exists?(tmp_dir)
   end
 
   def remove_tmp_dir
-    FileUtils::rmtree(tmp_dir)
+    FileUtils.rmtree(tmp_dir)
   end
 
 end
-
-
-

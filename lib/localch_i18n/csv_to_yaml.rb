@@ -26,8 +26,8 @@ module LocalchI18n
           output_file_path = "#{locale}_#{@output_file}"
         end
         File.open(output_file_path, 'w') do |file|
-          final_translation_hash = {locale => @translations[locale]}
-          file.puts YAML::dump(final_translation_hash)
+          final_translation_hash = { locale => @translations[locale] }
+          file.puts YAML.dump(final_translation_hash)
         end
         puts "File '#{@output_file}' for language '#{locale}' written to disc (#{output_file_path})"
       end
@@ -45,7 +45,7 @@ module LocalchI18n
 
       key_elements = key.split('.')
       @locales.each do |locale|
-        raise "Locale missing for key #{key}! (locales in app: #{@locales} / locales in file: #{row_hash.keys.to_s})" if !row_hash.has_key?(locale)
+        raise "Locale missing for key #{key}! (locales in app: #{@locales} / locales in file: #{row_hash.keys.to_s})" if !row_hash.key?(locale)
         store_translation(key_elements, locale, row_hash[locale])
       end
     end
@@ -59,8 +59,8 @@ module LocalchI18n
 
       tree = keys[0...-1]
       leaf = keys.last
-      data_hash = tree.inject(@translations[locale]) do |memo, k|
-        if memo.has_key?(k)
+      data_hash = tree.reduce(@translations[locale]) do |memo, k|
+        if memo.key?(k)
           memo[k]
         else
           memo[k] = {}

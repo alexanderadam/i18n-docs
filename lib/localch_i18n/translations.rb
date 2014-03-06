@@ -32,10 +32,10 @@ module LocalchI18n
     def download_files
       files = @settings['files']
       files.each do |target_file, url|
-        #ensure .yml filename
-        target_file = target_file + ".yml" if target_file !~ /\.yml$/
+        # ensure .yml filename
+        target_file = target_file + '.yml' if target_file !~ /\.yml$/
         # download file to tmp directory
-        target_file = target_file + ".yml" if target_file !~ /\.yml$/
+        target_file = target_file + '.yml' if target_file !~ /\.yml$/
         tmp_file = File.basename(target_file).gsub('.yml', '.csv')
         tmp_file = File.join(@tmp_folder, tmp_file)
         download(url, tmp_file)
@@ -70,5 +70,3 @@ module LocalchI18n
 
   end
 end
-
-

@@ -3,13 +3,13 @@ module LocalchI18n
   class MissingKeysFinder
     def initialize(backend)
       @backend = backend
-      self.load_config
-      self.load_translations
+      load_config
+      load_translations
     end
 
     # Returns an array with all keys from all locales
     def all_keys
-      I18n.backend.send(:translations).collect do |check_locale, translations|
+      I18n.backend.send(:translations).map do |check_locale, translations|
         collect_keys([], translations).sort
       end.flatten.uniq
     end
@@ -45,7 +45,7 @@ module LocalchI18n
       end
 
       output_missing_keys(missing_keys)
-      return missing_keys
+      missing_keys
     end
 
     def output_available_locales
@@ -56,11 +56,11 @@ module LocalchI18n
       if missing_keys.size > 0
         puts "#{missing_keys.size} #{missing_keys.size == 1 ? 'key is missing' : 'keys are missing'} from one or more locales:"
         missing_keys.keys.sort.each do |key|
-          puts "'#{key}': Missing from #{missing_keys[key].collect(&:inspect).join(', ')}"
+          puts "'#{key}': Missing from #{missing_keys[key].map(&:inspect).join(', ')}"
         end
         puts "\nERROR: #{missing_keys.size} #{missing_keys.size == 1 ? 'key is missing' : 'keys are missing'} from one or more locales."
       else
-        puts "No keys are missing"
+        puts 'No keys are missing'
       end
     end
 
@@ -79,13 +79,13 @@ module LocalchI18n
           full_keys << new_scope.join('.')
         end
       end
-      return full_keys
+      full_keys
     end
 
     # Returns true if key exists in the given locale
     def key_exists?(key, locale)
       I18n.locale = locale
-      I18n.translate(key, :raise => true)
+      I18n.translate(key, raise: true)
       return true
     rescue I18n::MissingInterpolationArgument
       return true
@@ -103,7 +103,7 @@ module LocalchI18n
       begin
         @yaml = YAML.load_file(File.join(Rails.root, 'config', 'ignore_missing_i18n_keys.yml'))
       rescue => e
-        STDERR.puts "No ignore_missing_keys.yml config file."
+        STDERR.puts 'No ignore_missing_keys.yml config file.'
       end
 
     end

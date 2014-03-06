@@ -4,7 +4,7 @@
 
 Although we use it with Google Docs, it could be used with any CSV file.
 
-*this gem is currently in use and tested with Rails 3.1. It probably works with other 3.x versions, but probably not 2.x at the moment.*
+*this gem is currently in use and tested with Rails 4. Other versions may work but aren't supported. *
 
 ## Features:
 
@@ -30,7 +30,7 @@ Create a configuration file in `config/translations.yml`:
 Finally, let Rails know what locales you will be using. Add this to `config/application.rb`:
 
     # locals to support:
-    I18n.available_locales = [:en,:de,:it,:fr]
+    I18n.available_locales = [:en, :de, :it, :fr]
 
 This defines which languages and translation files to import from a Google Spreadsheet. The content of the Spreadsheet URL is stored to a file called e.g. `example1.yml` within folders `config/locales/en` and all other detected locales.
 
@@ -66,6 +66,10 @@ Following Rake tasks are added by the GEM to your Rails project:
 * validate use with rails 2.x, other 3.x versions
 
 ## CHANGELOG
+
+### 0.0.8
+
+Merge the latest useful patches, minor formatting optimization and updated readme.
 
 ### 0.0.4
 
