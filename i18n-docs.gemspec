@@ -1,3 +1,5 @@
+# encoding: utf-8
+
 Gem::Specification.new do |s|
   s.name        = 'i18n-docs'
   s.version     = '0.0.8'
