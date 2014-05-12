@@ -13,16 +13,13 @@ module LocalchI18n
       @translations = {}
     end
 
-
     def export
       load_translations
       write_to_csv
     end
 
-
     def write_to_csv
       main_locale = @locales.include?('en') ? 'en' : @locales.first
-
       puts "    #{@source_file}: write CSV to '#{@output_file}' \n\n"
 
       CSV.open(@output_file, 'wb') do |csv|
@@ -35,9 +32,7 @@ module LocalchI18n
           csv << values.unshift(key)
         end
       end
-
     end
-
 
     def load_translations
       @locales.each do |locale|
@@ -47,19 +42,24 @@ module LocalchI18n
     end
 
     def load_language(locale)
-
       puts "    #{@source_file}: load translations for '#{locale}'"
 
       input_file = File.join(@source_dir, locale, @source_file)
-      translations = {}
-      translations = YAML.load_file(input_file) if File.exists?(input_file)
-      translations[locale]
+      unless File.exists?(input_file)
+        locale = locale.to_s.split('-').first
+        input_file = File.join(@source_dir, locale, @source_file)
+      end
+      if File.exists?(input_file)
+        YAML.load_file(input_file)[locale]
+      else
+        {}
+      end
     end
 
     def flatten_translations_hash(translations, parent_key = [])
       flat_hash = {}
 
-      translations.each do |key, t|
+      translations.each_pair do |key, t|
         current_key = parent_key.dup << key
         if t.is_a?(Hash)
           # descend
