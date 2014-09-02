@@ -1,7 +1,5 @@
 module LocalchI18n
-
   class CsvToYaml
-
     attr_reader :input_file, :output_file, :locales, :translations
 
     def initialize(input_file, output_file, locales = [])
@@ -15,7 +13,6 @@ module LocalchI18n
         @translations[locale] = {}
       end
     end
-
 
     def write_files
       @locales.each do |locale|
@@ -33,7 +30,6 @@ module LocalchI18n
       end
     end
 
-
     def process
       CSV.foreach(@input_file, headers: true) do |row|
         process_row(row.to_hash)
@@ -46,15 +42,15 @@ module LocalchI18n
 
       key_elements = key.split('.')
       @locales.each do |locale|
-        raise "Locale missing for key #{key}! (locales in app: #{@locales} / locales in file: #{row_hash.keys.to_s})" if !row_hash.key?(locale)
+        raise "Locale missing for key #{key}! (locales in app: #{@locales} / locales in file: #{row_hash.keys})" unless row_hash.key?(locale)
         store_translation(key_elements, locale, row_hash[locale])
       end
     end
 
-
     def store_translation(keys, locale, value)
       return nil if value.nil?    # we don't store keys that don't have a valid value
-      value.strip!
+      # wtf? the following line breaks the csv_to_yaml-test 'test_space_value'
+      # value.strip!
       # Google Spreadsheet does not export empty strings and therefore we use '_' as a replacement char.
       value = '' if value == '_'
 
@@ -70,7 +66,5 @@ module LocalchI18n
       end
       data_hash[leaf] = value
     end
-
   end
-
 end

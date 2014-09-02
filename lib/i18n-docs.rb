@@ -10,8 +10,6 @@ require 'localch_i18n/csv_to_yaml'
 require 'localch_i18n/translations'
 require 'localch_i18n/translation_file_export'
 
-
-
 if defined?(Rails)
   class LocalchI18nTask < Rails::Railtie
     rake_tasks do

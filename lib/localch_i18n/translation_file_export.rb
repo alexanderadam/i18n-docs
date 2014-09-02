@@ -1,6 +1,5 @@
 module LocalchI18n
   class TranslationFileExport
-
     attr_accessor :translations
 
     def initialize(source_dir, source_file, output_dir, locales)
@@ -45,11 +44,11 @@ module LocalchI18n
       puts "    #{@source_file}: load translations for '#{locale}'"
 
       input_file = File.join(@source_dir, locale, @source_file)
-      unless File.exists?(input_file)
+      unless File.exist?(input_file)
         locale = locale.to_s.split('-').first
         input_file = File.join(@source_dir, locale, @source_file)
       end
-      if File.exists?(input_file)
+      if File.exist?(input_file)
         YAML.load_file(input_file)[locale]
       else
         {}
@@ -71,6 +70,5 @@ module LocalchI18n
       end
       flat_hash
     end
-
   end
 end

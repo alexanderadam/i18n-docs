@@ -8,7 +8,7 @@ module LocalchI18n
 
     # Returns an array with all keys from all locales
     def all_keys
-      I18n.backend.send(:translations).map do |check_locale, translations|
+      I18n.backend.send(:translations).map do |_check_locale, translations|
         collect_keys([], translations).sort
       end.flatten.uniq
     end
@@ -24,7 +24,7 @@ module LocalchI18n
 
           skip = false
           ls = locale.to_s
-          if !@yaml[ls].nil?
+          unless @yaml[ls].nil?
             @yaml[ls].each do |re|
               if key.match(re)
                 skip = true
@@ -102,12 +102,10 @@ module LocalchI18n
     def load_config
       @yaml = {}
       begin
-        @yaml = YAML.load_file(File.join(Rails.root, 'config', 'ignore_missing_i18n_keys.yml'))
-      rescue => e
+        @yaml = YAML.load_file(Rails.root.join('config/ignore_missing_i18n_keys.yml').to_s)
+      rescue Exception
         STDERR.puts 'No ignore_missing_keys.yml config file.'
       end
-
     end
-
   end
 end

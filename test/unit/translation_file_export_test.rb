@@ -12,7 +12,7 @@ module UnitTests
       source_dir = fixture_path
       source_file = 'header.yml'
       output_dir = tmp_dir
-      locales = ['en', 'de']
+      locales = %w(en de)
 
       @exporter = LocalchI18n::TranslationFileExport.new(source_dir, source_file, output_dir, locales)
       @output_file = File.join(output_dir, 'header.csv')
@@ -22,11 +22,10 @@ module UnitTests
       remove_tmp_dir
     end
 
-
     def test_export
-      assert !File.exists?(@output_file)
+      assert !File.exist?(@output_file)
       @exporter.export
-      assert File.exists?(@output_file), 'Expected to have a CSV file written'
+      assert File.exist?(@output_file), 'Expected to have a CSV file written'
     end
 
     def dtest_load_language
@@ -38,12 +37,12 @@ module UnitTests
 
     def dtest_flatten_translations_hash
       translation_hash = { 'a' => {
-                            'I' => '1',
-                            'II' => '2',
-                            'III' => {
-                              'Z' => '3'
-                            }
-                          },
+        'I' => '1',
+        'II' => '2',
+        'III' => {
+          'Z' => '3'
+        }
+      },
                            'b' => '4'
                          }
 
@@ -75,7 +74,5 @@ module UnitTests
       assert_match(/^key,(en|de|,){3}$/, output)
       assert_match(/^numbers.one,(one|eins|,){3}$/, output)
     end
-
-
   end
 end
