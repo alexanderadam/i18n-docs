@@ -1,5 +1,4 @@
 # encoding: utf-8
-
 Gem::Specification.new do |s|
   s.name        = 'i18n-docs'
   s.version     = '0.1.2'
@@ -16,5 +15,4 @@ Gem::Specification.new do |s|
 
   s.add_development_dependency('mocha', '~> 0.13.3')
   s.add_development_dependency('awesome_print')
-
 end

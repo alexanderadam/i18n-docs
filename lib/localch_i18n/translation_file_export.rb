@@ -73,5 +73,4 @@ module LocalchI18n
     end
 
   end
-
 end
