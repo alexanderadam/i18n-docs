@@ -64,6 +64,15 @@ module LocalchI18n
           memo[k] = {}
         end
       end
+
+      if value.is_a?(String) && value.match(/^\[.*\]$/)
+        begin
+          value = eval(value)
+        rescue SyntaxError, NameError => e
+          # well...
+        end
+      end
+
       data_hash[leaf] = value
     end
   end

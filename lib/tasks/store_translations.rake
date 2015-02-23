@@ -8,7 +8,7 @@ namespace :i18n do
   end
 
   desc 'Download translations from Google Spreadsheet and save them to YAML files.'
-  task :import_translations => :environment do
+  task import_translations: :environment do
     raise "'Rails' not found! Tasks can only run within a Rails application!" if !defined?(Rails)
 
     config_file = Rails.root.join('config', 'translations.yml')
@@ -36,7 +36,7 @@ namespace :i18n do
     puts
     puts "  Detected locales: #{locales}"
     puts "  Detected files:"
-    input_files.each {|f| puts "    * #{File.basename(f)}" }
+    input_files.each { |f| puts "    * #{File.basename(f)}" }
 
     puts
     puts "  Start exporting files:"
